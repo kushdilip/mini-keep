@@ -1,3 +1,32 @@
-<h2 id="title">Welcome to Ember</h2>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col mdl-shadow--2dp" style="padding:10px;">
+    <div class="mdl-cell mdl-cell--8-col">
+      {{mdl-textfield label='Add New Note' value=newNote class="mdl-cell mdl-cell--12-col"}}      
+    </div>
+    <div class="mdl-cell mdl-cell--4-col">
+      {{mdl-button isRaised=true text='Add' action=(action "addTodo" newNote)}}
+    </div>
+  </div>
+  
+  
+  {{#each todos as |todo|}}
+    <div class="mdl-cell mdl-cell--6-col">
+      {{keep-card 
+        content=todo
+        deleteTodo=(action 'deleteTodo' todo.id)
+      }}
+    </div>
+  {{/each}}
+
+  
+  {{!-- {{#mdl-card title='Welcome to Ember.js'}}
+    <div class="mdl-card__supporting-text">
+      You have successfully installed <a href='https://github.com/truenorth/ember-material-lite' target='_blank'>ember-material-lite</a>. It's based on an awesome google project called <a href='https://github.com/google/material-design-lite' target='_blank'>Material Design Lite</a>
+    </div>
+    {{#mdl-card-actions}}
+      {{mdl-button text='Test Button'}}
+    {{/mdl-card-actions}}
+  {{/mdl-card}} --}}
+</div>
 
 {{outlet}}
