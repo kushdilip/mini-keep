@@ -4,6 +4,7 @@ const Storage = StorageArray.extend();
 
 // Model
 // text
+// deleted
 // done
 // due_date
 
@@ -17,9 +18,10 @@ Storage.reopenClass({
         title: 'task 1',
         text: 'Do the task',
         done: false,
-        due_date: "2016-04-01T11:32:41+05:30"
+        deleted: false,
+        due_date: "2016-04-03T11:32:41+05:30",
+        due_time: "2016-04-01T11:32:41+05:30"
       }
-      
     ];
   }
 });

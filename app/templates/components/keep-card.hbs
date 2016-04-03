@@ -1,11 +1,33 @@
 <div class="mdl-card__title">
-  <h2 class="mdl-card__title-text">{{content.title}}</h2>
+  <h2 class="mdl-card__title-text">
+    {{edit-item model=content property="title" saveChange=(action 'saveChange' 'title')}}
+    {{!-- {{content.title}} --}}
+  </h2>
 </div>
   
 <div class="mdl-card__supporting-text">
-  {{content.text}}  
+  {{edit-item model=content property="text" saveChange=(action 'saveChange' 'text')}}
+  {{!-- {{content.text}}   --}}
 </div>
 
 <div class="mdl-card__menu">
-    {{mdl-button icon='delete' isColored=false action=(action 'delete' content.title)}}
-  </div>
+  {{mdl-button icon='delete' isColored=false action=(action 'delete' content.title)}}
+</div>
+
+<div class="mdl-card__actions mdl-card--border">
+   {{moment-format content.due_date 'DD-MMM-YYYY'}}
+   {{moment-format content.due_time 'HH:MM'}}
+   {{mdl-button icon='notifications' isColored=false action=(action 'changeNotification' content.id)}}
+</div>
+
+
+{{#if isModal}}
+  {{#modal-dialog close='toggleDate' translucentOverlay=true}}
+    <h3>Change due date</h3>
+    {{pick-a-date date=(readonly content.due_date) on-selected=(action (mut content.due_date)) placeholder="Pick a date" }}
+    {{pick-a-time date=(readonly content.due_time) on-selected=(action (mut content.due_time)) placeholder="Pick a time" }}
+    <hr>
+    <br>
+    <button {{action 'toggleDate'}}>Close</button>
+  {{/modal-dialog}}
+{{/if}}

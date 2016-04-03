@@ -10,12 +10,15 @@
   
   
   {{#each todos as |todo|}}
-    <div class="mdl-cell mdl-cell--6-col">
-      {{keep-card 
-        content=todo
-        deleteTodo=(action 'deleteTodo' todo.id)
-      }}
-    </div>
+    {{#if (not todo.deleted)}}
+      <div class="mdl-cell mdl-cell--6-col">
+          {{keep-card 
+            content=todo
+            deleteTodo=(action 'deleteTodo' todo.id)
+            saveChange=(action 'saveChange'  todo.id)
+          }}
+      </div>
+    {{/if}}
   {{/each}}
 
   

@@ -1,0 +1,11 @@
+{{#if isEdit}}
+  {{input value=value }}
+  {{mdl-button text="Save" action=(action "saveChange")}}
+{{else}}
+  <span style={{if strike 'text-decoration:line-through;'}}>
+    {{value}}
+  </span>
+  {{#if (not strike)}}
+    {{mdl-button icon='edit' action=(action "toggleEdit")}}
+  {{/if}}
+{{/if}}

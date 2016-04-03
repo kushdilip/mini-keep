@@ -3,7 +3,6 @@ import { storageFor } from 'ember-local-storage';
 export default Ember.Controller.extend({
     todos: storageFor('todos'),
     
-    
     actions: {
       addTodo(text){
         let [title, ...desc] = text.split(':');
@@ -14,7 +13,10 @@ export default Ember.Controller.extend({
         let todo = {
           id: 1,
           title,
-          text: desc
+          text: desc,
+          due_date: moment().format(),
+          due_time: moment().format(),
+          deleted: false
         };
         
         let todos = this.get('todos');
@@ -36,8 +38,19 @@ export default Ember.Controller.extend({
           return;
         }
         
-        let todosContent = this.get('todos.content').filter(todo => todo.id !== id);
-        this.get('todo').replaceContent(todosContent);
+        let [todo] = this.get('todos').filter(todo => todo.id === id);
+        Ember.set(todo, 'deleted', true);
+        this.get('todos').arrayContentDidChange();
+        // window.location.reload(true);
+      },
+      
+      saveChange(id, property, value) {
+        let [todo] = this.get('todos').filter(todo => todo.id === id);
+        Ember.set(todo, property, value);
+      },
+      
+      changeNotification(){
+        
       },
       
       clearTodo(){
